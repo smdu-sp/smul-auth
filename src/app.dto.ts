@@ -6,6 +6,13 @@ export type BuscarPorLoginResponse = {
 }
 
 export type HealthResponse = {
-    server: string;
     status: string;
-}[]
+    totalServers: number;
+    okServers: { server: string; status: string; }[];
+    errorServers: { server: string; status: string; }[];
+}
+
+export type AutenticarResponse = {
+    status: string;
+    message: string;
+}

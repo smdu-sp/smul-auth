@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { BuscarPorLoginResponse, HealthResponse } from './app.dto';
+import { AutenticarResponse, BuscarPorLoginResponse, HealthResponse } from './app.dto';
 
 @Controller('')
 export class AppController {
@@ -11,9 +11,13 @@ export class AppController {
     return await this.appService.health();
   }
 
-  @Get('ldap/health')
-  async ldapHealth(): Promise<{ server: string, status: string }[]> {
-    return await this.appService.health();
+  @HttpCode(200)
+  @Post('ldap/autenticar')
+  async autenticar(
+    @Body('login') login: string,
+    @Body('senha') senha: string,
+  ): Promise<AutenticarResponse> {
+    return await this.appService.autenticar(login, senha);
   }
 
   @Get('ldap/buscar-por-login/:login')
