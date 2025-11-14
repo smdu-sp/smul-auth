@@ -58,6 +58,12 @@ export class AppService {
     if (!login || login === '') throw new BadRequestException("Login vazio. O login é obrigatório.");
     if (!senha || senha === '') throw new BadRequestException("Senha vazia. A senha é obrigatória.");
     let serverNum = 0;
+    setTimeout(() => {
+      throw new InternalServerErrorException({
+        status: "ERROR",
+        message: "Erro ao autenticar usuário. Verifique o status da aplicação."
+      });
+    }, 10000);
     const erros: { server: string, erro: any }[] = [];
     const health = await this.health();
     if (health.status === 'ERROR') throw new InternalServerErrorException({
