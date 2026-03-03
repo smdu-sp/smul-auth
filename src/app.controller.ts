@@ -13,10 +13,10 @@ import {
   BuscarPorLoginResponse,
   HealthResponse,
 } from './app.dto.js';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('LDAP')
-@Controller('')
+@Controller('auth')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -29,6 +29,17 @@ export class AppController {
 
   @ApiOperation({ summary: 'Autenticar usuário via LDAP' })
   @ApiResponse({ status: 200 })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        login: { type: 'string', description: 'Login do usuário' },
+        senha: { type: 'string', description: 'Senha do usuário' },
+      },
+      required: ['login', 'senha'],
+      additionalProperties: false,
+    },
+  })
   @HttpCode(200)
   @Post('ldap/autenticar')
   async autenticar(

@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { PrismaClient } from '../generated/prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
 
 function createAdapterFromUrl(url?: string) {
@@ -50,20 +50,6 @@ async function main() {
       create: { ip },
     })
   }
-
-  await prisma.usuario.upsert({
-    where: { login: 'admin' },
-    update: {},
-    create: {
-      login: 'admin',
-      email: 'admin@local',
-      nome: 'Administrador',
-      permissao: 'ADMIN',
-    },
-  })
-
-  // Caso deseje, ajuste nomes dos servidores:
-  // await prisma.servidor.updateMany({ where: { ip: '10.10.65.242' }, data: { nome: 'Servidor LDAP Principal' } })
 }
 
 main()

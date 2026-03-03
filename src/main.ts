@@ -1,5 +1,5 @@
 // import "dotenv/config";
-import 'reflect-metadata'
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -12,7 +12,9 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .addBearerAuth()
     .build();
-  const document = SwaggerModule.createDocument(app, config, { deepScanRoutes: true });
+  const document = SwaggerModule.createDocument(app, config, {
+    deepScanRoutes: true,
+  });
   SwaggerModule.setup('docs', app, document);
   await app.listen(process.env.PORT ?? 3000);
 }
