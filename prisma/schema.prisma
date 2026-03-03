@@ -35,6 +35,7 @@ model Servidor {
   id            String  @id @default(uuid())
   ip            String  @unique
   nome          String?
+  status        Boolean  @default(true)
 
   criadoEm      DateTime @default(now())
   atualizadoEm  DateTime @updatedAt

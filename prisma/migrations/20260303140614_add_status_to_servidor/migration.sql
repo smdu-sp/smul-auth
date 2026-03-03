@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `servidores` ADD COLUMN `status` BOOLEAN NOT NULL DEFAULT true;
