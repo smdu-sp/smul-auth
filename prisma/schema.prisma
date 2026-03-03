@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Permissao {
+  ADMIN
+  USER
+}
+
+model Usuario {
+  id            String    @id @default(uuid())
+  login         String    @unique
+  email         String    @unique
+  nome          String?
+
+  permissao     Permissao @default(USER)
+
+  criadoEm      DateTime  @default(now())
+  atualizadoEm  DateTime  @updatedAt
+
+  @@map("usuarios")
+}
+
+model Servidor {
+  id            String  @id @default(uuid())
+  ip            String  @unique
+  nome          String?
+
+  criadoEm      DateTime @default(now())
+  atualizadoEm  DateTime @updatedAt
+
+  @@map("servidores")
+}
